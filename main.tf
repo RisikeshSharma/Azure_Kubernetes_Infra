@@ -23,7 +23,7 @@ module "aks" {
   dns_prefix          = each.value.dns_prefix
   node_count          = each.value.node_count
   vm_size             = each.value.vm_size
-  
+
   # Link to the first ACR created for simplicity
   acr_id = module.acr["main"].id
 }
