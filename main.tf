@@ -7,7 +7,7 @@ module "acr" {
   source   = "./modules/acr"
   for_each = var.registries
 
-  name                = "acr${each.key}${azurerm_resource_group.parent.name}"
+  name                = "acr${each.key}${replace(azurerm_resource_group.parent.name, "-", "")}"
   resource_group_name = azurerm_resource_group.parent.name
   location            = azurerm_resource_group.parent.location
   sku                 = each.value.sku
@@ -20,10 +20,11 @@ module "aks" {
   cluster_name        = "aks-${each.key}"
   location            = azurerm_resource_group.parent.location
   resource_group_name = azurerm_resource_group.parent.name
-  dns_prefix          = each.value.dns_prefix
+  dns_prefix          = "${each.value.dns_prefix}-${each.key}"
   node_count          = each.value.node_count
   vm_size             = each.value.vm_size
 
-  # Link to the first ACR created for simplicity
-  acr_id = module.acr["main"].id
+  # Dynamically link to the corresponding ACR if keys match, 
+  # otherwise fall back to the first available ACR
+  acr_id = contains(keys(module.acr), each.key) ? module.acr[each.key].id : values(module.acr)[0].id
 }
