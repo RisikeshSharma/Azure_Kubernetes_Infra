@@ -23,13 +23,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Pre-flight Check
+        run: |
+          echo "Checking secrets..."
+          [ -z "$ARM_CLIENT_ID" ] && (echo "::error::AZURE_CLIENT_ID is missing"; exit 1)
+          [ -z "$ARM_CLIENT_SECRET" ] && (echo "::error::AZURE_CLIENT_SECRET is missing"; exit 1)
+          [ -z "$ARM_TENANT_ID" ] && (echo "::error::AZURE_TENANT_ID is missing"; exit 1)
+          [ -z "$ARM_SUBSCRIPTION_ID" ] && (echo "::error::AZURE_SUBSCRIPTION_ID is missing"; exit 1)
+          echo "All secrets found."
+
       - name: Azure Login
         run: |
           az login --service-principal \
-            -u "${{ secrets.AZURE_CLIENT_ID }}" \
-            -p "${{ secrets.AZURE_CLIENT_SECRET }}" \
-            --tenant "${{ secrets.AZURE_TENANT_ID }}"
-          az account set --subscription "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+            -u "$ARM_CLIENT_ID" \
+            -p "$ARM_CLIENT_SECRET" \
+            --tenant "$ARM_TENANT_ID"
+          az account set --subscription "$ARM_SUBSCRIPTION_ID"
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
