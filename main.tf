@@ -14,7 +14,7 @@ module "acr" {
 }
 
 module "aks" {
-  source   = "./modules/aks"
+  source   = "../modules/aks"
   for_each = var.clusters
 
   cluster_name        = "aks-${each.key}"
