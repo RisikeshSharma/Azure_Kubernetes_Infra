@@ -7,10 +7,15 @@ terraform {
     }
   }
   backend "azurerm" {
-    # These will be passed via backend config in the pipeline
+    # Backend details provided by user
+    resource_group_name  = "Vaishno-RG"
+    storage_account_name = "vaishnostg1219"
+    container_name       = "vaishnocontainer"
+    key                  = "terraform.tfstate"
   }
 }
 
 provider "azurerm" {
   features {}
+  subscription_id = "fc500898-8f61-4a51-b6d7-e98f57afda6d"
 }
