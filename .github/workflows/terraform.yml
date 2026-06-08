@@ -45,6 +45,9 @@ jobs:
         id: validate
         run: terraform validate -no-color
 
+      - name: Setup variables
+        run: mv terraform.tfvars.example terraform.tfvars
+
       - name: Terraform Plan
         id: plan
         if: github.event_name == 'pull_request'
