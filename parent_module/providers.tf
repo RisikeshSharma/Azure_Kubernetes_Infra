@@ -18,6 +18,6 @@ provider "azurerm" {
       prevent_deletion_if_contains_resources = true
     }
   }
-   use_cli = false
+  use_cli         = false
   subscription_id = "fc500898-8f61-4a51-b6d7-e98f57afda6d"
 }
