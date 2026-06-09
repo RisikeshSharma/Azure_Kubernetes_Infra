@@ -1,0 +1,93 @@
+name: Terraform AKS CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+env:
+  TF_VERSION: 1.8.0
+  WORKING_DIR: parent_module
+
+
+jobs:
+
+  terraform-ci:
+
+    name: Terraform Validate Scan Plan
+
+    runs-on: ubuntu-latest
+
+
+    steps:
+
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+
+    # Terraform Install
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: ${{ env.TF_VERSION }}
+
+
+    # Terraform Formatting
+
+    - name: Terraform Format Check
+      working-directory: ${{ env.WORKING_DIR }}
+      run: |
+        terraform fmt -check -recursive
+
+
+    # Terraform Init
+
+    - name: Terraform Init
+      working-directory: ${{ env.WORKING_DIR }}
+      run: |
+        terraform init
+
+
+    # Terraform Validate
+
+    - name: Terraform Validate
+      working-directory: ${{ env.WORKING_DIR }}
+      run: |
+        terraform validate
+
+
+    # TFLint Install
+
+    - name: Setup TFLint
+      uses: terraform-linters/setup-tflint@v4
+
+
+    # Terraform Linting
+
+    - name: Run TFLint
+      working-directory: ${{ env.WORKING_DIR }}
+      run: |
+        tflint --init
+        tflint
+
+
+    # Security Scanning
+
+    - name: Checkov Security Scan
+      uses: bridgecrewio/checkov-action@master
+      with:
+        directory: .
+        framework: terraform
+
+
+    # Terraform Plan
+
+    - name: Terraform Plan
+      working-directory: ${{ env.WORKING_DIR }}
+      run: |
+        terraform plan
