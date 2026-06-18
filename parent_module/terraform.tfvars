@@ -1,7 +1,7 @@
 resource_group = {
   rg = {
     name     = "aks-RG"
-    location = "Central india"
+    location = "South India"
 
   }
 }
