@@ -10,7 +10,7 @@ aks_cluster = {
   dev = {
 
     name                = "dev-aks-cluster"
-    location            = "centralindia"
+    location            = "South India"
     resource_group_name = "aks-RG"
 
     dns_prefix = "devaks"
@@ -35,7 +35,7 @@ acr = {
 
     resource_group_name = "aks-RG"
 
-    location = "centralindia"
+    location = "South India"
 
     sku = "Standard"
 
