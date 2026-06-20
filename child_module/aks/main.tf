@@ -17,7 +17,13 @@ resource "azurerm_kubernetes_cluster" "aks" {
     type = "SystemAssigned"
   }
 
+  network_profile {
+    network_plugin = "azure"
+    network_policy = "cilium"
+  }
+
   tags = local.tags
+}
 }
 
 
