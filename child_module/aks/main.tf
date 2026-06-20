@@ -7,6 +7,8 @@ resource "azurerm_kubernetes_cluster" "aks" {
   resource_group_name = each.value.resource_group_name
   dns_prefix          = each.value.dns_prefix
 
+  kubernetes_version = each.value.kubernetes_version
+
   default_node_pool {
     name       = each.value.node_pool.name
     node_count = each.value.node_pool.node_count
@@ -19,7 +21,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
 
   network_profile {
     network_plugin = "azure"
-    network_policy = "cilium"
+    network_policy = "azure"
   }
 
   tags = local.tags
@@ -31,4 +33,3 @@ locals {
     team    = "Billing"
   }
 }
-
