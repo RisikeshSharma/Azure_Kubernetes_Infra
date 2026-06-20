@@ -6,7 +6,7 @@ variable "aks_cluster" {
     location            = string
     resource_group_name = string
     dns_prefix          = string
-    kubernetes_version   = number
+    kubernetes_version  = string
 
     node_pool = object({
       name       = string
@@ -15,5 +15,4 @@ variable "aks_cluster" {
     })
 
   }))
-
 }
