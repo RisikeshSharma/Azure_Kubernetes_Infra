@@ -24,8 +24,6 @@ resource "azurerm_kubernetes_cluster" "aks" {
 
   tags = local.tags
 }
-}
-
 
 locals {
   tags = {
@@ -33,3 +31,4 @@ locals {
     team    = "Billing"
   }
 }
+
