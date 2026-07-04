@@ -13,17 +13,19 @@ variable "aks_cluster" {
     location            = string
     resource_group_name = string
     dns_prefix          = string
-    kubernetes_version =  string
+    kubernetes_version  = string
 
     node_pool = object({
-      name       = string
-      node_count = number
-      vm_size    = string
+      name    = string
+      vm_size = string
+
+      min_count = number
+      max_count = number
     })
 
   }))
-
 }
+
 variable "acr" {
 
   type = map(object({

@@ -1,23 +1,24 @@
 resource_group = {
   rg = {
     name     = "aks-RG"
-    location = "South India"
+    location = "East US"
 
   }
 }
 aks_cluster = {
   dev = {
     name                = "dev-aks-cluster"
-    location            = "Central India"
+    location            = "Central US"
     resource_group_name = "aks-RG"
     dns_prefix          = "devaks"
 
-    kubernetes_version = "1.33"
+    kubernetes_version  = "1.36"
 
     node_pool = {
-      name       = "system"
-      node_count = 2
-      vm_size    = "Standard_D2s_v3"
+      name      = "system"
+      vm_size   = "Standard_D2s_v3"
+      min_count = 1
+      max_count = 3
     }
   }
 }
@@ -31,7 +32,7 @@ acr = {
 
     resource_group_name = "aks-RG"
 
-    location = "South India"
+    location = "East US"
 
     sku = "Standard"
 

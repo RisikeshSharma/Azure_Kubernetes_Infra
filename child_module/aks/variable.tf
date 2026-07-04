@@ -10,8 +10,10 @@ variable "aks_cluster" {
 
     node_pool = object({
       name       = string
-      node_count = number
       vm_size    = string
+
+      min_count  = number
+      max_count  = number
     })
 
   }))
