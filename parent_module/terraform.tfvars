@@ -12,7 +12,7 @@ aks_cluster = {
     resource_group_name = "aks-RG"
     dns_prefix          = "devaks"
 
-    kubernetes_version  = "1.36"
+    kubernetes_version = "1.36"
 
     node_pool = {
       name      = "system"
