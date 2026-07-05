@@ -1,7 +1,7 @@
 resource_group = {
   rg = {
     name     = "aks-RG"
-    location = "East US"
+    location = "Central US"
 
   }
 }
@@ -32,7 +32,7 @@ acr = {
 
     resource_group_name = "aks-RG"
 
-    location = "East US"
+    location = "Central US"
 
     sku = "Standard"
 
