@@ -14,7 +14,7 @@ terraform {
   }
   backend "azurerm" {
     resource_group_name  = "Vaishno-RG"
-    storage_account_name = "vaishnostg1219"
+    storage_account_name = "vaishnostg1218"
     container_name       = "vaishnocontainer"
     key                  = "terraform.tfstate"
   }
